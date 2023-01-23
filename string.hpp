@@ -6,9 +6,7 @@
 
 class String {
  public:
-  String() : len_(0), cap_(len_), str_(new char[cap_ + 1]) {
-    str_[size()] = '\0';
-  }
+  String() = default;
   String(const char* str);
   String(size_t n, char symbol);
   String(const String& str) : String(str.data()) {}
@@ -54,9 +52,9 @@ class String {
   ~String() { delete[] str_; }
 
  private:
-  size_t len_;
-  size_t cap_;
-  char* str_;
+  size_t len_{0};
+  size_t cap_{len_};
+  char* str_{new char[cap_ + 1]};
 
   void realloc(size_t new_capacity, bool copy = true);
   bool rcmp(const char* substr, size_t sub_len, size_t ind) const;
@@ -103,7 +101,7 @@ std::ostream& operator<<(std::ostream& str_out, const String& str) {
 
 bool operator==(const String& str_1, const String& str_2) {
   return str_1.length() == str_2.length() &&
-         std::strcmp(str_1.data(), str_2.data()) == 0;
+      std::strcmp(str_1.data(), str_2.data()) == 0;
 }
 bool operator!=(const String& str_1, const String& str_2) {
   return !(str_1 == str_2);
