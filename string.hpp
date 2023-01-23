@@ -17,14 +17,14 @@ class String {
   char* data() { return str_; }
   char* begin() { return data(); }
   char* end() { return begin() + length(); }
-  const char* data() const { return str_; }
-  const char* cbegin() const { return data(); }
-  const char* cend() const { return cbegin() + length(); }
+  [[nodiscard]] const char* data() const { return str_; }
+  [[nodiscard]] const char* cbegin() const { return data(); }
+  [[nodiscard]] const char* cend() const { return cbegin() + length(); }
 
   char& front() { return *begin(); }
   char& back() { return *(end() - 1); }
-  const char& front() const { return *cbegin(); }
-  const char& back() const { return *(cend() - 1); }
+  [[nodiscard]] const char& front() const { return *cbegin(); }
+  [[nodiscard]] const char& back() const { return *(cend() - 1); }
 
   char& operator[](size_t index) { return *(begin() + index); }
   const char& operator[](size_t index) const { return *(cbegin() + index); }
@@ -43,11 +43,11 @@ class String {
   void clear() { str_[len_ = 0] = '\0'; }
   void shrink_to_fit();
 
-  size_t find(const char* substr) const;
-  size_t find(const String& substr) const { return find(substr.data()); }
-  size_t rfind(const char* substr) const;
-  size_t rfind(const String& substr) const { return rfind(substr.data()); }
-  String substr(size_t start, size_t n) const;
+  [[nodiscard]] size_t find(const char* substr) const;
+  [[nodiscard]] size_t find(const String& substr) const { return find(substr.data()); }
+  [[nodiscard]] size_t rfind(const char* substr) const;
+  [[nodiscard]] size_t rfind(const String& substr) const { return rfind(substr.data()); }
+  [[nodiscard]] String substr(size_t start, size_t n) const;
 
   ~String() { delete[] str_; }
 
